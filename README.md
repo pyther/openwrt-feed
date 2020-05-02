@@ -1,7 +1,8 @@
 # OpenWrt Feed
 ## Packages
 
-* [`eap_proxy`](https://github.com/jaysoffian/eap_proxy) (Proxy EAP packets between network interfaces)
+* [`goeap_proxy`](https://github.com/pyther/goeap_proxy) (Go: Proxy EAP packets between network interfaces)
+* [`eap_proxy`](https://github.com/jaysoffian/eap_proxy) (Python: Proxy EAP packets between network interfaces)
 
 ## How to Use (Overview)
 
@@ -55,12 +56,12 @@ Instructions based on OpenWrt's wiki [Using the SDK](https://openwrt.org/docs/gu
 
 6. Build Package
     ```
-    $ make package/eap_proxy/download
-    $ make package/eap_proxy/prepare
-    $ make package/eap_proxy/compile
+    $ make package/goeap_proxy/download
+    $ make package/goeap_proxy/prepare
+    $ make package/goeap_proxy/compile
     ```
 
-7. Package should be built and located in `./bin/packages/x86_64/pyther/eap_proxy`
+7. Package should be built and located in `./bin/packages/x86_64/pyther/goeap_proxy`
 
 ## Building OpenWrt Image
 
@@ -77,12 +78,12 @@ Instructions based on OpenWrt's wiki [Using the SDK](https://openwrt.org/docs/gu
 
 3. Copy built package into `./packages`
     ```
-    $ cp ~/build/openwrt-sdk-18.06.4-x86-64_gcc-7.3.0_musl.Linux-x86_64/bin/packages/x86_64/pyther/eap_proxy_0.190918-2_all.ipk ./packages
+    $ cp ~/build/openwrt-sdk-18.06.4-x86-64_gcc-7.3.0_musl.Linux-x86_64/bin/packages/x86_64/pyther/goeap_proxy_0.200502.3-1_x86_64.ipk ./packages
     ```
 
 4. Build Image
     ```
-    $ make image PACKAGES="eap_proxy"
+    $ make image PACKAGES="goeap_proxy"
     ```
 
     Note: other platforms (non-x86) you mant to to specify `PROFILE=XXX`
