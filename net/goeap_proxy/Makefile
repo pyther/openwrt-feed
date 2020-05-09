@@ -1,15 +1,16 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=goeap_proxy
-PKG_VERSION:=0.200502.3
+PKG_VERSION:=0.1.0
 PKG_RELEASE:=1
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/pyther/goeap_proxy.git
-PKG_SOURCE_VERSION:=64e8b890bd1457d1d067d60f549616821675663b
-PKG_SOURCE_DATE:=2020-05-02
+PKG_SOURCE_VERSION:=0fb7d408bb25c27ea26d55816e2c7223bac6059c
+PKG_SOURCE_DATE:=2020-05-09
 PKG_MIRROR_HASH:=skip
 
 GO_PKG:=github.com/pyther/goeap_proxy
+GO_PKG_LDFLAGS_X:=main.Version=$(PKG_VERSION) main.BuildStamp=`date +%FT%T%z`
 
 include $(INCLUDE_DIR)/package.mk
 include ../../../../feeds/packages/lang/golang/golang-package.mk
