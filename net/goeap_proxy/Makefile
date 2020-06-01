@@ -1,12 +1,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=goeap_proxy
-PKG_VERSION:=0.1.0
+PKG_VERSION:=0.1.1
 PKG_RELEASE:=1
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/pyther/goeap_proxy.git
-PKG_SOURCE_VERSION:=0fb7d408bb25c27ea26d55816e2c7223bac6059c
-PKG_SOURCE_DATE:=2020-05-09
+PKG_SOURCE_VERSION:=5b0269c4d1ef52a5f479930c36f1ba2ea8bd9118
+PKG_SOURCE_DATE:=2020-05-31
 PKG_MIRROR_HASH:=skip
 
 GO_PKG:=github.com/pyther/goeap_proxy
