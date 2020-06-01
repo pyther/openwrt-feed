@@ -8,29 +8,37 @@ PROG="/usr/bin/goeap_proxy"
 
 boot()
 {
-    ubus -t 30 wait_for network.device
+    config_load goeap_proxy
+    config_get wan global wan
+    config_get router global router
+    ubus -t 30 wait_for "network.interface.${wan}" "network.interface.${router}"
     rc_procd start_service
 }
 
 start_service()
 {
     config_load goeap_proxy
-    config_get wan proxy wan
-    config_get router proxy router
+    config_get wan global wan
+    config_get router global router
+
+    local if_wan=$(uci get "network.${wan}.ifname")
+    local if_router=$(uci get "network.${router}.ifname")
 
     procd_open_instance
-    procd_set_param respawn ${respawn_threshold:-2} ${respawn_timeout:-30} ${respawn_retry:-0}
+    # attempt to restart every 30 seconds, the eap proxy for internet connectivity
+    procd_set_param respawn ${respawn_threshold:-3600} ${respawn_timeout:-30} ${respawn_retry:-0}
     procd_set_param stdout 1
     procd_set_param stderr 1
     procd_set_param command $PROG --syslog
-    procd_set_param file /etc/config/goeap_proxy
-    procd_append_param command -if-wan "${wan}"
-    procd_append_param command -if-router "${router}"
+    procd_append_param command -if-wan "${if_wan}"
+    procd_append_param command -if-router "${if_router}"
     procd_close_instance
 }
 
 service_triggers()
 {
     procd_add_reload_trigger "goeap_proxy"
+    procd_add_interface_trigger "interface.*.up" "${router}" /etc/init.d/goeap_proxy restart
+    procd_add_interface_trigger "interface.*.up" "${wan}" /etc/init.d/goeap_proxy restart
 }
 
