@@ -1,4 +1,4 @@
-config goeap_proxy 'proxy'
-	option wan 'eth2'
-	option router 'eth3'
+config goeap_proxy 'global'
+	option wan 'wan'
+	option router 'rgw'
 
