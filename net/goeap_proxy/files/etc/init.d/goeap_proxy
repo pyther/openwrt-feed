@@ -29,7 +29,7 @@ start_service()
     procd_set_param respawn ${respawn_threshold:-3600} ${respawn_timeout:-30} ${respawn_retry:-0}
     procd_set_param stdout 1
     procd_set_param stderr 1
-    procd_set_param command $PROG --syslog
+    procd_set_param command $PROG
     procd_append_param command -if-wan "${if_wan}"
     procd_append_param command -if-router "${if_router}"
     procd_close_instance
@@ -37,8 +37,6 @@ start_service()
 
 service_triggers()
 {
-    procd_add_reload_trigger "goeap_proxy"
-    procd_add_interface_trigger "interface.*.up" "${router}" /etc/init.d/goeap_proxy restart
-    procd_add_interface_trigger "interface.*.up" "${wan}" /etc/init.d/goeap_proxy restart
+    procd_add_reload_trigger "goeap_proxy" "network"
 }
 
