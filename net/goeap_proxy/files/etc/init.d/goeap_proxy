@@ -20,6 +20,7 @@ start_service()
     config_load goeap_proxy
     config_get wan global wan
     config_get router global router
+    config_get_bool ignore_logoff global 'ignore_logoff' '0'
 
     local if_wan=$(uci get "network.${wan}.ifname")
     local if_router=$(uci get "network.${router}.ifname")
@@ -32,6 +33,9 @@ start_service()
     procd_set_param command $PROG
     procd_append_param command -if-wan "${if_wan}"
     procd_append_param command -if-router "${if_router}"
+    if [ $ignore_logoff != "0" ]; then
+        procd_append_param command -ignore-logoff
+    fi
     procd_close_instance
 }
 

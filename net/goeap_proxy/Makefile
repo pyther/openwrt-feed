@@ -1,12 +1,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=goeap_proxy
-PKG_VERSION:=0.1.2
+PKG_VERSION:=0.2.0
 PKG_RELEASE:=1
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/pyther/goeap_proxy.git
-PKG_SOURCE_VERSION:=c2761234c88bf1a86495713bc4308b717e55d43e
-PKG_SOURCE_DATE:=2020-06-07
+PKG_SOURCE_VERSION:=12ebcc82b92fd69083e5b3ffde9050e93a20d17a
+PKG_SOURCE_DATE:=2020-06-28
 PKG_MIRROR_HASH:=skip
 
 GO_PKG:=github.com/pyther/goeap_proxy
@@ -34,7 +34,7 @@ endef
 
 define Package/goeap_proxy/install
 	$(call GoPackage/Package/Install/Bin,$(1))
-	
+
 	$(INSTALL_DIR) $(1)/etc/init.d
 	$(INSTALL_BIN) ./files/etc/init.d/goeap_proxy $(1)/etc/init.d/goeap_proxy
 
