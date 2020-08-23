@@ -3,6 +3,7 @@
 
 * [`goeap_proxy`](https://github.com/pyther/goeap_proxy) (Go: Proxy EAP packets between network interfaces)
 * [`eap_proxy`](https://github.com/jaysoffian/eap_proxy) (Python: Proxy EAP packets between network interfaces)
+* ['ookla-speedtest'](https://www.speedtest.net/apps/cli) (Ookla's Speedtest CLI)
 
 ## How to Use (Overview)
 
