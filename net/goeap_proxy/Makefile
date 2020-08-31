@@ -6,14 +6,16 @@ PKG_RELEASE:=1
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/pyther/goeap_proxy.git
 PKG_SOURCE_VERSION:=12ebcc82b92fd69083e5b3ffde9050e93a20d17a
-PKG_SOURCE_DATE:=2020-06-28
-PKG_MIRROR_HASH:=skip
+
+PKG_BUILD_DEPENDS:=golang/host
+PKG_BUILD_PARALLEL:=1
+PKG_USE_MIPS16:=0
 
 GO_PKG:=github.com/pyther/goeap_proxy
-GO_PKG_LDFLAGS_X:=main.Version=$(PKG_VERSION) main.BuildStamp=`date +%FT%T%z`
+GO_PKG_LDFLAGS_X:=main.Version=$(PKG_VERSION) main.BuildStamp=$(shell date +%FT%T%z)
 
 include $(INCLUDE_DIR)/package.mk
-include ../../../../feeds/packages/lang/golang/golang-package.mk
+include $(TOPDIR)/feeds/packages/lang/golang/golang-package.mk
 
 define Package/goeap_proxy
 	SECTION=:net
