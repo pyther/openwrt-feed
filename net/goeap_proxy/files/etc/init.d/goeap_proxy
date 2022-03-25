@@ -31,8 +31,8 @@ start_service()
     procd_set_param stdout 1
     procd_set_param stderr 1
     procd_set_param command $PROG
-    procd_append_param command "${if_wan}"
-    procd_append_param command "${if_router}"
+    procd_append_param command -if-wan "${if_wan}"
+    procd_append_param command -if-router "${if_router}"
     if [ $ignore_logoff != "0" ]; then
         procd_append_param command -ignore-logoff
     fi
