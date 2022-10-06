@@ -9,7 +9,7 @@
 ### Openwrt Build Procedure
 This is a standard OpenWrt Feed, therefore packages should be built in the same way as another OpenWrt package.
 
-1. Add to feeds.conf: `src-git pyther git://github.com/pyther/openwrt-feed`
+1. Add to feeds.conf: `src-git pyther https://github.com/pyther/openwrt-feed`
 2. Update the feed: `./scripts/feeds update pyther`
 3. Install the package: `./scritps/feeds install $PKGNAME`
 4. Build Package: `make package/$PKGNAME/{download,prepare,compile}' 
