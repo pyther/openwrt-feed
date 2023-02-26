@@ -1,5 +1,6 @@
 #!/bin/sh
-BUILD_DIR='/src/build'
+BUILD_DIR='build'
+mkdir "$BUILD_DIR"
 
 # UPDATE ME! x86_64 snapshot
 # Platform List: https://openwrt.org/docs/platforms/start

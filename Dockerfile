@@ -4,9 +4,8 @@ RUN apk update && \
     apk add bash bzip2 gawk git && \
     apk add perl rsync && \
     apk add ncurses-dev && \
-    apk add python2 python3
-RUN addgroup -g 1000 app && \
-    adduser -D -G app -s /sbin/nologin -u 1000 app
-USER app
+    apk add python3
 
-ENTRYPOINT ["/bin/sh", "/src/entry.sh"]
+WORKDIR /src
+
+ENTRYPOINT ["/bin/sh", "entry.sh"]
