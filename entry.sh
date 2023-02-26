@@ -2,16 +2,10 @@
 BUILD_DIR='build'
 mkdir "$BUILD_DIR"
 
-# UPDATE ME! x86_64 snapshot
-# Platform List: https://openwrt.org/docs/platforms/start
-# Release Page: https://downloads.openwrt.org/releases/19.07.3/targets/
-SDK_URL="https://downloads.openwrt.org/snapshots/targets/x86/64/openwrt-sdk-x86-64_gcc-8.4.0_musl.Linux-x86_64.tar.xz"
-SDK_SUM="6a70cd1e6249125b0c669679fba9302e40cffae004f63b3a5117b2fff6d42049"
-
-#SDK_URL="https://downloads.openwrt.org/releases/19.07.3/targets/x86/64/openwrt-sdk-19.07.3-x86-64_gcc-7.5.0_musl.Linux-x86_64.tar.xz"
-#SDK_SUM="aeafd4f8405ac2a226c3aa1b5b98e1994a541cdca2f2fe2d0b8a1696a73cf8d9"
-#SDK_URL="https://downloads.openwrt.org/releases/19.07.3/targets/brcm2708/bcm2710/openwrt-sdk-19.07.3-brcm2708-bcm2710_gcc-7.5.0_musl.Linux-x86_64.tar.xz"
-#SDK_SUM="31edcbb9a1a9500040d1baef84cea639561d97ed2a9808bef2b109014755c813"
+# UPDATE ME! x86_64 release
+# Release Page: https://downloads.openwrt.org/releases/
+SDK_URL=https://archive.openwrt.org/releases/22.03.2/targets/x86/64/openwrt-sdk-22.03.2-x86-64_gcc-11.2.0_musl.Linux-x86_64.tar.xz
+SDK_SUM=d5718b743004f6b16996c439f35833c89e1a38b056c599b2917f22b24dc467f8
 
 SDK_FILE=$(basename $SDK_URL)
 
