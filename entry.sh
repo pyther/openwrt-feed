@@ -1,12 +1,18 @@
 #!/bin/sh
+
+# Can also be set to archive
+SERVER="downloads"
 BUILD_DIR='build'
+VERSION="23.05.2"
+ARCH="x86"
+PLATFORM="64"
+COMPILER="gcc-12.3.0_musl"
 mkdir "$BUILD_DIR"
 
 # UPDATE ME! x86_64 release
 # Release Page: https://downloads.openwrt.org/releases/
-SDK_URL=https://archive.openwrt.org/releases/22.03.2/targets/x86/64/openwrt-sdk-22.03.2-x86-64_gcc-11.2.0_musl.Linux-x86_64.tar.xz
-SDK_SUM=d5718b743004f6b16996c439f35833c89e1a38b056c599b2917f22b24dc467f8
-
+SDK_URL="https://${SERVER}.openwrt.org/releases/${VERSION}/targets/${ARCH}/${PLATFORM}/openwrt-sdk-${VERSION}-${ARCH}-${PLATFORM}_${COMPILER}.Linux-x86_64.tar.xz"
+SDK_SUM=df9cbce6054e6bd46fcf28e2ddd53c728ceef6cb27d1d7fc54a228f272c945b0
 SDK_FILE=$(basename $SDK_URL)
 
 download() {
@@ -19,7 +25,7 @@ setup() {
     [ -f $SDK_FILE ] || download
 
     # check that download tar matches expected checksum
-    if [ "$(sha256sum $SDK_FILE | awk '{print $1}')" != $SDK_SUM ]; then
+    if [ -n "$SDK_SUM" && "$(sha256sum $SDK_FILE | awk '{print $1}')" != "$SDK_SUM" ]; then
        echo "$SDK_FILE does not match sha256 signature"
        exit 1
     fi
