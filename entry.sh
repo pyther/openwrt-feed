@@ -1,17 +1,18 @@
 #!/bin/sh
-BUILD_DIR='/src/build'
 
-# UPDATE ME! x86_64 snapshot
-# Platform List: https://openwrt.org/docs/platforms/start
-# Release Page: https://downloads.openwrt.org/releases/19.07.3/targets/
-SDK_URL="https://downloads.openwrt.org/snapshots/targets/x86/64/openwrt-sdk-x86-64_gcc-8.4.0_musl.Linux-x86_64.tar.xz"
-SDK_SUM="6a70cd1e6249125b0c669679fba9302e40cffae004f63b3a5117b2fff6d42049"
+# Can also be set to archive
+SERVER="downloads"
+BUILD_DIR='build'
+VERSION="23.05.2"
+ARCH="x86"
+PLATFORM="64"
+COMPILER="gcc-12.3.0_musl"
+mkdir "$BUILD_DIR"
 
-#SDK_URL="https://downloads.openwrt.org/releases/19.07.3/targets/x86/64/openwrt-sdk-19.07.3-x86-64_gcc-7.5.0_musl.Linux-x86_64.tar.xz"
-#SDK_SUM="aeafd4f8405ac2a226c3aa1b5b98e1994a541cdca2f2fe2d0b8a1696a73cf8d9"
-#SDK_URL="https://downloads.openwrt.org/releases/19.07.3/targets/brcm2708/bcm2710/openwrt-sdk-19.07.3-brcm2708-bcm2710_gcc-7.5.0_musl.Linux-x86_64.tar.xz"
-#SDK_SUM="31edcbb9a1a9500040d1baef84cea639561d97ed2a9808bef2b109014755c813"
-
+# UPDATE ME! x86_64 release
+# Release Page: https://downloads.openwrt.org/releases/
+SDK_URL="https://${SERVER}.openwrt.org/releases/${VERSION}/targets/${ARCH}/${PLATFORM}/openwrt-sdk-${VERSION}-${ARCH}-${PLATFORM}_${COMPILER}.Linux-x86_64.tar.xz"
+SDK_SUM=df9cbce6054e6bd46fcf28e2ddd53c728ceef6cb27d1d7fc54a228f272c945b0
 SDK_FILE=$(basename $SDK_URL)
 
 download() {
@@ -24,7 +25,7 @@ setup() {
     [ -f $SDK_FILE ] || download
 
     # check that download tar matches expected checksum
-    if [ "$(sha256sum $SDK_FILE | awk '{print $1}')" != $SDK_SUM ]; then
+    if [ -n "$SDK_SUM" && "$(sha256sum $SDK_FILE | awk '{print $1}')" != "$SDK_SUM" ]; then
        echo "$SDK_FILE does not match sha256 signature"
        exit 1
     fi

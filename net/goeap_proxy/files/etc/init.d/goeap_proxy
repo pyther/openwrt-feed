@@ -22,20 +22,22 @@ start_service()
     config_get router global router
     config_get_bool ignore_logoff global 'ignore_logoff' '0'
 
-    local if_wan=$(uci get "network.${wan}.ifname")
-    local if_router=$(uci get "network.${router}.ifname")
+    fatal=0
+    local if_wan=$(uci get "network.${wan}.device" 2>/dev/null)
+    if [ "$?" != 0 ]; then echo "ERROR goeap_proxy is looking for $wan but it is not configured currently" >&2; fatal=1; fi
+    local if_router=$(uci get "network.${router}.device" 2>/dev/null)
+    if [ "$?" != 0 ]; then echo "ERROR goeap_proxy is looking for $router but it is not configured currently" >&2; fatal=1; fi
+    if [ "$fatal" != 0 ]; then echo "Can not proceed to start goeap_proxy" >&2; exit 1; fi;
 
     procd_open_instance
-    # attempt to restart every 30 seconds, the eap proxy for internet connectivity
-    procd_set_param respawn ${respawn_threshold:-3600} ${respawn_timeout:-30} ${respawn_retry:-0}
-    procd_set_param stdout 1
-    procd_set_param stderr 1
-    procd_set_param command $PROG
-    procd_append_param command "${if_wan}"
-    procd_append_param command "${if_router}"
-    if [ $ignore_logoff != "0" ]; then
-        procd_append_param command -ignore-logoff
-    fi
+      # attempt to restart every 30 seconds, the eap proxy for internet connectivity
+      procd_set_param respawn ${respawn_threshold:-3600} ${respawn_timeout:-30} ${respawn_retry:-0}
+      procd_set_param stdout 1
+      procd_set_param stderr 1
+      procd_set_param command "$PROG" "${if_wan}" "${if_router}"
+      if [ $ignore_logoff != "0" ]; then
+          procd_append_param command -ignore-logoff
+      fi
     procd_close_instance
 }
 
@@ -43,4 +45,3 @@ service_triggers()
 {
     procd_add_reload_trigger "goeap_proxy" "network"
 }
-
